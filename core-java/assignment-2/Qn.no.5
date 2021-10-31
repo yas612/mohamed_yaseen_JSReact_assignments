@@ -1,0 +1,36 @@
+abstract class Shape
+{
+    public abstract void draw();
+}
+ class Line extends Shape
+{
+   public void draw()
+   {
+       System.out.println("single dimension");
+   }
+}
+class Rectangle extends Shape{
+    public void draw()
+    {
+        System.out.println("four dimension");
+    }
+}
+class Cube extends Shape
+{
+    public void draw()
+    {
+        System.out.println("four dimension");
+    }
+}
+class Main
+{
+    public static void main(String[] args)
+    {
+        Line ln = new Line();
+        ln.draw();
+        Rectangle rn = new Rectangle();
+        rn.draw();
+        Cube cn=new Cube();
+        cn.draw();
+    }
+}
