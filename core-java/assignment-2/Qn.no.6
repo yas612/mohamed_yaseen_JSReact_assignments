@@ -1,0 +1,29 @@
+import java.beans.PersistenceDelegate;
+
+class abstract Persistence
+        {
+            public void abstract persist();
+}
+class FilePersistence extends Persistence
+{
+    public void persist()
+    {
+        a=10;
+    }
+
+}
+class DataPersistence extends Persistence
+{
+    public void persist()
+    {
+        a=20;
+    }
+}
+class Main
+{
+    public static void main(String[] args)
+    {
+        Persistence in = new Persistence();
+        in.persist();
+    }
+}
