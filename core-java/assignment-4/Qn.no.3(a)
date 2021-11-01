@@ -1,0 +1,43 @@
+public class InsufficientBalanceException extends Exception
+{
+    public void InsufficientBalanceException(String msg)
+    {
+
+    }
+}
+import java.util.Scanner;
+  public class Saving
+  {
+      long id=1285;
+      double balance=2000;
+      double deposit;
+
+     public void InsufficientBalanceException(double withdraw) throws InsufficientBalanceException {
+         {
+             if ((withdraw > 2000) || (balance == 0)) {
+                 throw new InsufficientBalanceException();
+             } else {
+                 System.out.println("Amount withdrawn =");
+                 System.out.print(withdraw);
+             }
+         }
+     }
+     public static void main(String[] args)
+     {
+         Scanner in = new Scanner(System.in);
+         long id=1285;
+         double balance=2000;
+         double deposit;
+         Saving on = new Saving();
+         double withdraw=in.nextDouble();
+         try
+         {
+             on.InsufficientBalanceException(withdraw);
+         }
+         catch(InsufficientBalanceException e)
+         {
+             System.out.println(e);
+         }
+     }
+
+}
