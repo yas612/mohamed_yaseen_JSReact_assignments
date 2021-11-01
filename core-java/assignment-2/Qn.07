@@ -1,0 +1,76 @@
+import java.util.*;
+abstract class DessertItem
+{
+     abstract void getCost();
+
+}
+public class Icecream extends DessertItem
+{
+    int x;
+  int n;int tax=3;  int oneiceprice=15;
+     void getCost(int n,int tax,int oneiceprice)
+    {
+        int rupees=(n*oneiceprice)+tax;
+        System.out.println("The price of icereams ordered in rupees = "+rupees );
+    }
+}
+public class Cooky extends DessertItem
+{
+    int x;
+   int n;int tax=60;int onecookyprice=2;
+   public void getCost(int n,int tax,int onecookyprice)
+   {
+       int euro=((n*onecookyprice)*70)+tax;
+       System.out.println("The price of cookies ordered in rupees = "+euro );
+   }
+}
+public class Candy extends DessertItem
+{
+    int x;
+    int n;int tax=45;int onecandyprice=1;
+
+    public void getCost(int n,int tax,int onecandyprice)
+    {
+        int dollar=((n*onecandyprice)*60)+tax;
+        System.out.println("The price of candies ordered in rupees = "+dollar );
+    }
+
+}
+class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner in = new Scanner(System.in);
+        Icecream i = new Icecream();
+        Candy c=new Candy();
+        Cooky co=new Cooky();
+        System.out.println("Choose 1 for owner");
+        System.out.println("Choose 2 for customer");
+        int a=in.nextInt();
+        switch(a)
+        {
+            case 1:
+                   i.x=5;
+                   System.out.println("added icecream are : "+i.x);
+                c.x=8;
+                System.out.println("added candies are : "+c.x);
+                co.x=6;
+                System.out.println("added cookies are : "+co.x);
+                break;
+            case 2:
+                   i.n=3;
+                   c.n=4;
+                   c.n=10;
+                System.out.println("price of icecream in rupees = ");
+                   i.getCost();
+                System.out.println("price of cookies in rupees = ");
+                co.getCost();
+                System.out.println("price of candies in rupees= ");
+                c.getCost();
+
+                break;
+
+        }
+
+    }
+}
