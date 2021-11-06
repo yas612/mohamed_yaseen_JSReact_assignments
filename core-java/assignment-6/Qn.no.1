@@ -1,0 +1,36 @@
+public class Contact
+{
+    String name;
+    String email;
+    long phonenumber;
+    String gender;
+    public Contact(long phonenumber,String gender,String name,String email)
+    {
+        this.name=name;
+        this.email=email;
+        this.gender=gender;
+        this.phonenumber=phonenumber;
+
+    }
+}
+import java.util.TreeMap;
+import java.util.Collections;
+import java.util.Iterator;
+public class Phone
+{
+    public static void main(String[] args)
+    {
+        TreeMap<Long,Contact> tree = new TreeMap<Long,Contact>(Collections.reverseOrder());
+        Contact obj1 = new Contact(9638527410L,"male","dhoni","dhoni@gmail.com");
+        Contact obj2 = new Contact(9638527411L,"male","kohli","kohli@gmail.com");
+        Contact obj3 = new Contact(9638527415L,"female","mandhana","mandhana@gmail.com");
+
+        tree.put(741852L,obj1);
+        tree.put(7418523L,obj2);
+        tree.put(741856L,obj3);
+
+       System.out.println("keys are:"+tree.keySet());
+       System.out.println("values are: "+tree.values());
+       System.out.println("keys and values are :"+tree);
+    }
+}
