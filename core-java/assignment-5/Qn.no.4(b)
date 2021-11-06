@@ -1,0 +1,24 @@
+import java.util.Date;
+public class Pair<k,v>
+{
+    public Pair(k key,v value)
+    {
+      this.key=key;
+      this.value=value;
+    }
+   k key;
+    v value;
+    public <k,v> String gene()
+    {
+        return key+" "+value;
+    }
+
+}
+
+public class New {
+    public static void main(String[] args) {
+        Pair<String,java.util.Date> ob1 = new Pair<String, java.util.Date>("Today is ", new java.util.Date());
+        System.out.println(ob1.gene());
+
+    }
+}
