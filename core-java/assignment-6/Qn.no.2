@@ -1,0 +1,51 @@
+import java.util.HashSet;
+import java.util.Iterator;
+
+public class Contact
+{
+   public static void main(String[] args)
+   {
+       Product one = new Product("future");
+       Product two = new Product("present");
+       HashSet<Product> hset =  new HashSet<Product>();
+       hset.add(one);
+       hset.add(two);
+       hset.add(one);
+       Iterator<Product> it= hset.iterator();
+       while(it.hasNext())
+       {
+           System.out.println(it.next().items);
+       }
+   }
+}
+import java.util.HashSet;
+ class Product implements Comparable<Product>
+{
+    String items;
+    public Product (String items)
+    {
+        this.items=items;
+
+    }
+    public int CompareTo(Product o)
+    {
+        if(items.compareTo(o.items)>0)
+        {
+            return 1;
+        }
+        else if(items.compareTo(o.items)<0)
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+
+    @Override
+    public int compareTo(Product o) {
+        return 0;
+    }
+}
