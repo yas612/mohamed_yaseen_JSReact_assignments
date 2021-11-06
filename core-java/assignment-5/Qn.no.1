@@ -1,1 +1,42 @@
-one
+import java.util.HashSet;
+
+public class Employee
+{
+    public Employee(int id,int salary,String name)
+    {
+        super();
+        this.id=id;
+        this.salary=salary;
+        this.name=name;
+    }
+    int id;
+    int salary;
+    String name;
+   public void display()
+   {
+       System.out.print("ID= "+id);
+       System.out.print(", salary= "+salary);
+       System.out.print(", name= "+name);
+   }
+}
+import java.util.HashSet;
+import java.util.Iterator;
+public class Emp
+{
+    public static void main(String[] args)
+    {
+        Employee in1 =  new Employee(4452,25000,"kohli");
+        Employee in2 = new Employee(4453,22000,"dhoni");
+
+        HashSet<Employee> on = new HashSet<Employee>();
+        on.add(in1);
+        on.add(in2);
+        Iterator<Employee> em = on.iterator();
+        while(em.hasNext())
+        {
+            em.next().display();
+            System.out.println();
+        }
+    }
+}
+
