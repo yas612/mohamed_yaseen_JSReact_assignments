@@ -1,0 +1,44 @@
+public class IllegalBankTransactionException extends Exception
+{
+    public void IllegalBankTransactionexception()
+    {
+
+    }
+}
+import java.util.*;
+import java.lang.*;
+public class Bank
+{
+
+     public void IllegalBankTransactionException(double withdraw) throws IllegalBankTransactionException{
+         if(withdraw<0)
+         {
+             throw new IllegalBankTransactionException();
+         }
+         else
+         {
+
+             System.out.println("amount withdrawn ="+withdraw);
+         }
+     }
+     public static void main(String[] args)
+     {
+         long id=5784;
+         double balance=2000;
+
+         double deposit;
+         System.out.println("Enter the amount to be withdrawn = ");
+         Scanner in = new Scanner(System.in);
+         double withdraw = in.nextDouble();
+         Bank on = new Bank();
+         try
+         {
+             on.IllegalBankTransactionException(withdraw);
+         }
+         catch(IllegalBankTransactionException e)
+         {
+             System.out.println("Error occured");
+         }
+
+     }
+}
