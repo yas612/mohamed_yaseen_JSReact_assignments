@@ -1,0 +1,20 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class SortingOddWords {
+
+	public static void main(String[] args) {
+			List<String> str = new ArrayList<>();
+			
+			str.add("naveen");
+			str.add("sree");
+			str.add("josh");
+			str.add("santhosh");
+			
+			str.removeIf(l -> l.length()%2 !=0);
+			
+			System.out.println(str);
+			
+	}
+
+}
