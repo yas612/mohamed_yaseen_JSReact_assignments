@@ -1,0 +1,26 @@
+
+
+public class Operations {
+
+	public static void main(String[] args) {
+		
+		int a=10;
+		int b=2;
+		 
+		Arithmatic add = (c,d) -> System.out.println("Addition operation : " + (c+d));
+		Arithmatic substract = (c,d) -> System.out.println("Substract operation : " + (c-d));
+		Arithmatic multiply = (c,d) -> System.out.println("Multiply operation : " + (c*d));
+		Arithmatic division = (c,d) -> System.out.println("Division operation : " + (c/d));
+
+		add.calculation(a, b);
+		substract.calculation(a, b);
+		multiply.calculation(a, b);
+		division.calculation(a, b);
+	}
+
+}
+
+
+interface Arithmatic{
+	public void calculation(int a,int b);
+}
