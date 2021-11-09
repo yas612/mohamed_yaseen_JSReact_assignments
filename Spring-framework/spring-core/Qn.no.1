@@ -1,0 +1,95 @@
+package rainbow;
+
+public class Address 
+{
+	private String street;
+	private  String city;
+	private  String state;
+	private String country;
+
+	public Address(String street, String city, String state, String country) {
+		super();
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		
+	}
+	public String toString()
+	{
+		return street+" "+city+" "+state+" "+country;
+	}
+
+}
+package rainbow;
+
+public class Customer
+{
+	private int customerId;
+	private String customerName;
+	private Address address;
+
+	public Customer(int customerId, String customerName,Address address) 
+	{
+		super();
+		this.customerId = customerId;
+		this.customerName = customerName;
+		this.address=address;
+	
+		
+	}
+		
+		public void info()
+		{
+			 System.out.println("customerid ="+ customerId +" customer name ="+customerName+" "+"cutomeraddress ="+address.toString());
+		}
+	}
+	package rainbow;
+
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+
+public class Test {
+
+	public static void main(String[] args) 
+	{
+		ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+          Customer n = (Customer)context.getBean("customer");
+		n.info();
+
+	}
+
+}
+//Bean file
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+     
+
+    <bean id="address" class="rainbow.Address">
+    
+    <constructor-arg type="java.lang.String"  value="xyz street"/>
+      <constructor-arg type="java.lang.String" value="xyz city"/>
+        <constructor-arg type="java.lang.String" value="xyz country"/>
+          <constructor-arg type="java.lang.String" value="xyz state"/>
+          
+             
+            
+    </bean>
+    <bean id="customer" class="rainbow.Customer">
+      <constructor-arg type="int" value="231"/>
+        <constructor-arg type="java.lang.String" value="yaseen"/>
+          <constructor-arg>
+          <ref bean="address"/>
+          </constructor-arg>
+            
+              </bean>
+</beans>
+
+    
+
