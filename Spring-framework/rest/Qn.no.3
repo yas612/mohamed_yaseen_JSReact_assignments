@@ -1,0 +1,115 @@
+//main
+package com.mvc;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class AddressInfoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(AddressInfoApplication.class, args);
+	}
+
+}
+
+//address controller
+package com.mvc;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class AddressController {
+
+		@GetMapping("/getAddress/{zip}")
+		public Address getAddressByZip(@PathVariable("zip") int zipCode) {
+			Address address = new Address(99501, "AK", "US", "ANCHORAGE");
+			
+			if(zipCode==99501) {
+				return address;
+			}else {
+				return null;
+			}
+		}
+	
+}
+
+//address
+
+package com.mvc;
+
+public class Address {
+	private int zipcode;
+	private String state;
+	private String country;
+	private String city;
+	
+	@Override
+	public String toString() {
+		return "Address [zipcode=" + zipcode + ", state=" + state + ", country=" + country + ", city=" + city + "]";
+	}
+
+	
+	
+	public Address(int zipcode, String state, String country, String city) {
+		super();
+		this.zipcode = zipcode;
+		this.state = state;
+		this.country = country;
+		this.city = city;
+	}
+
+
+
+	public int getZipcode() {
+		return zipcode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setZipcode(int zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	
+}
+
+//initializer
+
+package com.mvc;
+
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+public class ServletInitializer extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(AddressInfoApplication.class);
+	}
+
+}
