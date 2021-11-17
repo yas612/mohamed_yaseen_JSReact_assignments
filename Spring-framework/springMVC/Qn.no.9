@@ -1,0 +1,236 @@
+package com.mvc;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class EmployeeController {
+
+	@Autowired
+	Employee1 dao;
+
+	ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("com/mvc/Beans.xml");
+	Employee1 dao = (Employee1) context.getBean("empdao");
+
+	@RequestMapping("/{pageid}")
+	public ModelAndView getEmployeeView(@PathVariable("pageid") int pageid) {
+		int total = 5;
+		int startRecord;
+		if (pageid == 1) {
+			startRecord = 1;
+		} else {
+			startRecord = (pageid - 1) * total + 1;
+		}
+		
+		List<Employee> emplist = dao.getEmployeesByPage(startRecord, total);
+		
+		ModelAndView a = new ModelAndView("ShowEmployees.jsp");
+		a.addObject("emplist", emplist);
+		return a;
+	}
+	
+	public String getEmployeeView(@PathVariable("pageid") int pageid, Model m) {
+	int total = 5;
+	int startRecord;
+		if (pageid == 1) {
+			startRecord = 1;
+		} else {
+		startRecord = (pageid - 1) * total + 1;
+	}
+
+	List<Employee> emplist = dao.getEmployeesByPage(startRecord, total);
+
+	ModelAndView mv = new ModelAndView("ShowEmployees.jsp");
+	mv.addObject("emplist", emplist);
+		System.out.println(emplist);
+		m.addAttribute("emplist", emplist);
+		return "ShowEmployees.jsp";
+	}
+
+}
+//employee
+package com.mvc;
+
+public class Employee {
+	private int id;    
+	private String name;    
+	private double salary;
+	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
+	}
+	
+	public Employee() {}
+
+	public Employee(int id, String name, double salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+	}
+
+	public int getId() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
+	public double getSalary() {
+		return salary;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}    
+	
+	
+}
+//employee1
+
+package com.mvc;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+public class Employee1 {
+
+	JdbcTemplate template;
+
+	public void setTemplate(JdbcTemplate template) {
+		this.template = template;
+	}
+
+	public List<Employee> getEmployeesByPage(int startRecord, int total) {
+
+		String sql = "select * from employee limit " + (startRecord - 1) + "," + total;
+
+		return template.query(sql, new RowMapper<Employee>() {
+
+			public Employee mapRow(ResultSet rs, int row) throws SQLException {
+				Employee e = new Employee();
+				e.setId(rs.getInt(1));
+				e.setName(rs.getString(2));
+				e.setSalary(rs.getDouble(3));
+				return e;
+			}
+		});
+
+	}
+	
+}
+
+//index.jsp
+
+<html>
+<body>
+<a href="1">View Employees</a> 
+</body>
+</html>
+
+//showemployees.jsp
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Employees List</h1>
+	<table>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Salary</th>
+		</tr>
+		<c:forEach var="emp" items="${emplist}">
+			<tr>
+				<td>${emp.id}</td>
+				<td>${emp.name}</td>
+				<td>${emp.salary}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	<br />
+
+	<a href="/Q9_Pagination/1">1</a>
+	<a href="/Q9_Pagination/2">2</a>
+	<a href="/Q9_Pagination/3">3</a>
+</body>
+</html>
+
+//servlet
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd ">
+	
+	
+	<!-- <ctx:annotation-config></ctx:annotation-config>
+	 -->
+	<ctx:component-scan base-package="com.mvc"></ctx:component-scan>
+	
+	<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />  
+		<property name="url" value="jdbc:mysql://localhost:3306/springDatabase" />  
+		<property name="username" value="root" />  
+		<property name="password" value="root" />  
+	</bean>  
+	  
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+		<property name="dataSource" ref="ds"></property>  
+	</bean>  
+	  
+	<bean id="empdao" class="com.mvc.Employee1">  
+		<property name="template" ref="jdbcTemplate"></property>  
+	</bean> 
+	
+</beans>
+
+//web
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://Java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Pagination</display-name>
+  
+  <servlet>
+		<servlet-name>mvc</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+</web-app>
