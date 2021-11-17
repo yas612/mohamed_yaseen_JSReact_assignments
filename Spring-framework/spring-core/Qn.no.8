@@ -1,0 +1,167 @@
+package com.helloworld;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class MainShape {
+
+	public static void main(String[] args) {
+		AbstractApplicationContext context=new ClassPathXmlApplicationContext("shape.xml");
+		context.registerShutdownHook();
+		Shape obj=(Shape) context.getBean("shape");
+		obj.draw();
+		
+
+	}
+
+}
+Shape.java:
+package com.helloworld;
+
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+public class Shape implements InitializingBean, DisposableBean {
+
+	public void draw() {
+		System.out.println("Drawing a circle");
+		
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		System.out.println("This is Destroy");
+		
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("This is Initializing method");		
+	}
+
+}
+Shape.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean id="shape" class="com.helloworld.Shape"  	>
+   
+   
+   </bean>
+
+</beans>
+ii ->
+Mainshape:
+package com.helloworld;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class MainShape {
+
+	public static void main(String[] args) {
+		AbstractApplicationContext context=new ClassPathXmlApplicationContext("shape.xml");
+		context.registerShutdownHook();
+		Shape obj=(Shape) context.getBean("shape");
+		obj.draw();
+		
+
+	}
+
+}
+Shape.java:
+ackage com.helloworld;
+
+public class Shape {
+
+	public void draw() {
+		System.out.println("Drawing a circle");
+		
+	}
+	
+	public void myInit() {
+		System.out.println("My init method called for Shape");
+	}
+	public void cleanup() {
+		System.out.println("My cleanup method called for Shape");
+	}
+
+}
+shape.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean id="shape" class="com.helloworld.Shape"  init-method="myInit" destroy-method="cleanup"	>
+   
+   
+   </bean>
+
+</beans>
+iii ->
+MainShape:
+package com.helloworld;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class MainShape {
+
+	public static void main(String[] args) {
+		AbstractApplicationContext context=new ClassPathXmlApplicationContext("shape.xml");
+		context.registerShutdownHook();
+		Shape obj=(Shape) context.getBean("shape");
+		obj.draw();
+		
+
+	}
+
+}
+
+Shape.java :
+package com.helloworld;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+public class Shape {
+
+	public void draw() {
+		System.out.println("Drawing a circle");
+		
+	}
+	@PostConstruct
+	public void myInit() {
+		System.out.println("My init method called for Shape");
+	}
+	@PreDestroy
+	public void cleanup() {
+		System.out.println("My cleanup method called for Shape");
+	}
+
+}
+shape.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context = "http://www.springframework.org/schema/context"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   <context:annotation-config/>
+   <bean id="shape" class="com.helloworld.Shape"	>
+   
+   
+   </bean>
+   
+</beans>
