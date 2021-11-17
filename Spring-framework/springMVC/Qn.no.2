@@ -1,0 +1,103 @@
+package com.mvc;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class SimpleInterestController {
+	
+	@RequestMapping("/")
+	public String landingPage() {
+	
+		return "SimpleInterest.jsp";
+	
+	}
+	
+	@RequestMapping("/calculate")
+	public ModelAndView calculateIntrest(HttpServletRequest request, HttpServletResponse response) {
+		
+		double principal = Double.parseDouble(request.getParameter("amount"));
+		double Year = Double.parseDouble(request.getParameter("year"));
+		double rateOfInterest = Double.parseDouble(request.getParameter("intrest"));
+		double simpleInterest = ((principal*Year*rateOfInterest)/100);
+		
+		ModelAndView a = new ModelAndView("ResultDisplay.jsp");
+//		a.setViewName("ResultDisplay.jsp");
+		a.addObject("result", simpleInterest);
+		return a;
+		
+	}
+}
+
+//ResultDisplay.jsp
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	the simple Interest is: <%= request.getAttribute("result") %>
+</body>
+</html>
+
+//SimpleInterest.jsp
+<html>
+<body>
+<h1>Simple Interest Calculation</h1>
+<form action="calculate" method="post">
+	
+	<input id="pamount" name="amount" type="number"/><br/>
+	
+	<input id="noyear" name="year" type="number"/><br/>
+
+	<input id="interest" name="inetrest" type="number"/><br/>
+	<button type="submit"/>
+</form>
+</body>
+</html>
+
+//servlet
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd ">
+	
+	
+	<ctx:annotation-config></ctx:annotation-config>
+	<ctx:component-scan base-package="com.mvc"></ctx:component-scan>
+</beans>
+
+//web
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://Java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Simple Interest</display-name>
+  
+  <servlet>
+		<servlet-name>mvc</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+</web-app>
