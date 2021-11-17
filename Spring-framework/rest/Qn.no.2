@@ -1,0 +1,52 @@
+package com.mvc;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class AuthController {
+	
+	@RequestMapping("/authenticate/{username}/{password}")
+	public String getMessage(@PathVariable("username") String username, @PathVariable("password") String password) {
+		String User = "india";
+		String Pass = "blue123";
+		
+		if(username.equals(User) && password.equals(Pass)) {
+			return "Valid User";
+		} else {
+			return "Invalid User";
+		}
+	}
+}
+//main
+
+package com.mvc;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class AuthenticateUserApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(AuthenticateUserApplication.class, args);
+	}
+
+}
+
+//initializer
+
+package com.mvc;
+
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+public class ServletInitializer extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(AuthenticateUserApplication.class);
+	}
+
+}
