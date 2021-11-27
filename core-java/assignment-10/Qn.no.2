@@ -1,0 +1,16 @@
+1.you can't use local variable type interface with argument methods,
+
+public long count(var fileList)
+var cannot be used for fields, method parameters,and method return types.
+the reason is that type in these locations appear explicitly in class files and javadoc specifications.
+with type interface, it's quite easy for a change to an initializer to cause the variable inferred to change.
+
+2.you can't initialize a var variable to null
+
+var count=null;
+by assuming null,it is not clear what the type should be, since in java any object ref can be null.
+
+3.we can't use local variable type interface with lamda exp
+
+var z=() -> {} 
+reason behind this is because those require an explicit target type.
