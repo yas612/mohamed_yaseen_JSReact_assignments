@@ -1,0 +1,55 @@
+<!-- html file -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="yaseen">
+    <title>assignments</title>
+  </head>
+  <body>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="q1.js">
+  </script>
+  </body>
+</html>
+
+
+//js file
+
+var a = [1,3,6,4];var l;var sum=0;
+function forloop(a){
+  for(l=0;l<a.length;l++){
+    sum=sum+a[l];
+  }
+  return sum;
+}
+document.write("The sum for the forloop :"+forloop(a)+"<br>");
+
+function whileloop(a){
+  sum=0;
+  var l = a.length-1;
+  while(l>=0){
+    sum=sum+a[l];
+    l--;
+
+  }
+  return sum;
+}
+document.write("The sum for the whileloop :"+whileloop(a)+"<br>");
+
+function dowhileloop(a){
+  sum=0;
+  var l =0
+  do{
+
+    sum=sum+a[l];
+    l++;
+
+  }
+  while(l<a.length){
+
+}
+  return sum;
+}
+document.write("The sum for the dowhileloop :"+dowhileloop(a));
