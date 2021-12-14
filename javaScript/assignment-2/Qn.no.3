@@ -1,0 +1,45 @@
+<!-- html file -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="yaseen">
+    <title>assignments</title>
+  </head>
+  <body>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="q1.js">
+  </script>
+  </body>
+</html>
+
+//js file
+
+var inputArray = [];
+var size = 5;
+function isEven(x){
+  if(x%2==0){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+for(var i=0; i<size; i++) {
+
+	//Taking Input from user
+	inputArray[i] = prompt('Enter Element ' + (i+1));
+}
+
+
+function find(inputArray){
+  for(var j=0;j<size;j++){
+
+    if(isEven(inputArray[j])){
+      return inputArray[j];
+      break;
+    }
+  }
+}
+document.write(find(inputArray));
