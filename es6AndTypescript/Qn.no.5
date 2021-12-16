@@ -1,0 +1,42 @@
+<!-- html file -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>assignment</title>
+</head>
+<body>
+    
+</body>
+<script src="A1.js"></script>
+</html>
+
+//js file 
+
+let add=(a=4,b=6)=>console.log(`a is ${a} b is ${b} and the sum is ${a+b}`);
+
+add();
+add(7);
+let userFriendslist = (userName, ...userFriends) => console.log(`{userName: "${userName}", list of Friends is: "${userFriends}"}`);
+
+
+userFriendslist('mani','ram','babu','surya',"dharun");
+userFriendslist('ibu','sulaiman',"muthu",'sathish');
+
+
+//c
+
+var capitalName=(...names)=>{
+    let outp=[];
+
+    names.forEach(element => {
+        outp.push(element.toUpperCase())
+    });
+    console.log(`names in Upper case:"${outp}"`);
+}
+
+let list=["babu", "dharun" , "muthu", "sathish"];
+console.log(list);
+
+capitalName(...list)
