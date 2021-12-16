@@ -1,0 +1,33 @@
+<!-- html file -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>assignment</title>
+</head>
+<body>
+    
+</body>
+<script src="A1.js"></script>
+</html>
+
+//js file 
+let Order={
+    id:12,
+    title:"bat",
+    price:5000,
+
+    printOrder:function () {
+        console.log("The details of the order ${this.id}  ${this.title}  {this.$price}");
+    },
+    getPrice:function () {
+        console.log(`Price is: ${this.price}`);
+        
+    }
+
+};
+
+let batOrder=Object.assign({},Order) 
+console.log(batOrder);
+console.log(batOrder.getPrice);
